@@ -2,12 +2,34 @@ pragma language_version >= 0.23;
 
 import CompactStandardLibrary;
 
-// PrivatePass initial contract
+// Minimal single-ticket lifecycle checkpoint.
+// The stored status is the source of truth, and the circuit returns the
+// actual state rather than the expected value so mismatches are visible.
 
 export ledger ticketId: Opaque<"string">;
+export ledger status: Opaque<"string">;
 
 export circuit registerTicket(
-    customTicketId: Opaque<"string">
+    customTicketId: Opaque<"string">,
+    registeredStatus: Opaque<"string">
 ): [] {
     ticketId = disclose(customTicketId);
+    status = disclose(registeredStatus);
+}
+
+export circuit isTicketRegistered(): Opaque<"string"> {
+    return status;
+}
+
+export circuit useTicket(
+    registeredStatus: Opaque<"string">,
+    usedStatus: Opaque<"string">,
+    rejectedStatus: Opaque<"string">
+): Opaque<"string"> {
+    if (status == disclose(registeredStatus)) {
+        status = disclose(usedStatus);
+        return disclose(usedStatus);
+    }
+
+    return disclose(rejectedStatus);
 }
