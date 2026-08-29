@@ -1,0 +1,44 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies and build output
+node_modules
+dist
+dist-ssr
+
+# Local environment and secrets
+.env
+.env.*
+*.local
+*.secret
+*.pem
+*.key
+*.p12
+
+# Midnight / local generated state
+.midnight/
+.midnight/**
+wallets/
+wallet/
+**/wallets/**
+**/wallet/**
+*.wallet
+*.keystore
+*.mnemonic
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
