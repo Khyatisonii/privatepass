@@ -2,10 +2,13 @@ import { useState } from 'react'
 import VerificationResult, {
   type VerificationOutcome,
 } from '../components/VerificationResult'
+import type { Ticket } from '../types/ticket'
 
 interface GateScreenProps {
+  ticket: Ticket | undefined
   onVerifyTicket: () => Promise<VerificationOutcome>
   onBack: () => void
+  onResetDemo: () => void
 }
 
 const loadingSteps = [
@@ -14,7 +17,7 @@ const loadingSteps = [
   'Checking ticket usage...',
 ]
 
-function GateScreen({ onVerifyTicket, onBack }: GateScreenProps) {
+function GateScreen({ ticket, onVerifyTicket, onBack, onResetDemo }: GateScreenProps) {
   const [isLoading, setIsLoading] = useState(false)
   const [loadingStep, setLoadingStep] = useState(0)
   const [result, setResult] = useState<VerificationOutcome | null>(null)
@@ -46,6 +49,11 @@ function GateScreen({ onVerifyTicket, onBack }: GateScreenProps) {
         <div className="gate-intro">
           <p className="eyebrow">PrivatePass Verify</p>
           <h2>Verify access without seeing personal data.</h2>
+          {ticket ? (
+            <p className="selected-ticket-copy">
+              Selected ticket: {ticket.id} · {ticket.status.toUpperCase()}
+            </p>
+          ) : null}
         </div>
 
         <div className="scanner-frame">
@@ -66,9 +74,14 @@ function GateScreen({ onVerifyTicket, onBack }: GateScreenProps) {
         ) : null}
 
         {!isLoading && (
-          <button type="button" className="primary-button" onClick={runVerification}>
-            {result ? 'Verify Again' : 'Verify Demo Ticket'}
-          </button>
+          <div className="gate-actions">
+            <button type="button" className="primary-button" onClick={runVerification}>
+              {result ? 'Verify Again' : 'Verify Demo Ticket'}
+            </button>
+            <button type="button" className="secondary-button subtle" onClick={onResetDemo}>
+              Reset Demo
+            </button>
+          </div>
         )}
       </main>
     </div>

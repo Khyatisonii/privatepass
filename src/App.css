@@ -15,7 +15,9 @@
 
 .topbar,
 .ticket-header-row,
-.gate-header {
+.gate-header,
+.ticket-toolbar,
+.gate-actions {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -222,7 +224,8 @@
   box-shadow: 0 0 16px rgba(116, 240, 168, 0.8);
 }
 
-.primary-button {
+.primary-button,
+.secondary-button {
   border: none;
   border-radius: 18px;
   padding: 15px 18px;
@@ -234,9 +237,91 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.primary-button:hover {
+.primary-button:hover,
+.secondary-button:hover {
   transform: translateY(-1px);
   box-shadow: 0 20px 32px rgba(142, 159, 255, 0.25);
+}
+
+.secondary-button {
+  background: rgba(154, 170, 214, 0.1);
+  border: 1px solid rgba(160, 179, 219, 0.18);
+  color: #edf4ff;
+  box-shadow: none;
+}
+
+.secondary-button.subtle {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ticket-toolbar {
+  margin-top: 4px;
+}
+
+.ticket-toolbar.compact {
+  margin-top: 0;
+}
+
+.ticket-selector {
+  border: 1px solid rgba(167, 183, 226, 0.12);
+  border-radius: 22px;
+  background: rgba(12, 17, 29, 0.82);
+  overflow: hidden;
+}
+
+.selector-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(167, 183, 226, 0.12);
+  color: #dfe8ff;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.selector-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.selector-item {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(167, 183, 226, 0.08);
+  color: #edf4ff;
+  text-align: left;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.selector-item:last-child {
+  border-bottom: none;
+}
+
+.selector-item.active {
+  background: rgba(132, 161, 255, 0.1);
+}
+
+.selector-ticket-name {
+  font-weight: 700;
+}
+
+.selector-ticket-meta {
+  color: #a3b9e6;
+  font-size: 0.76rem;
+}
+
+.selected-ticket-copy {
+  color: #dfeaff;
+  font-size: 0.84rem;
+  margin: 0;
+}
+
+.gate-actions {
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .privacy-note,
