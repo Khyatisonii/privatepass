@@ -28,6 +28,7 @@ wallets/
 wallet/
 **/wallets/**
 **/wallet/**
+contracts/managed/
 *.wallet
 *.keystore
 *.mnemonic
