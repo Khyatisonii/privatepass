@@ -1,4 +1,4 @@
-import { demoTicket, type TicketState } from '../types/ticket'
+import type { TicketState } from '../types/ticket'
 
 const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
@@ -15,7 +15,7 @@ export async function verifyTicket(
   // TODO: Replace mock verification with Midnight privacy-preserving proof verification.
   await wait(200)
 
-  if (ticketId !== demoTicket.id) {
+  if (!ticketId) {
     return {
       success: false,
       title: 'Access denied',
@@ -40,9 +40,5 @@ export async function verifyTicket(
 
 export function markTicketUsed(ticketId: string): TicketState {
   // TODO: Replace mock state mutation with Midnight verification lifecycle handling.
-  if (ticketId === demoTicket.id) {
-    return 'used'
-  }
-
-  return 'unused'
+  return ticketId ? 'used' : 'unused'
 }

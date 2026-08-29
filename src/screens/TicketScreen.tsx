@@ -3,9 +3,11 @@ import type { Ticket } from '../types/ticket'
 interface TicketScreenProps {
   ticket: Ticket
   onBack: () => void
+  onOpenSelector: () => void
+  onResetDemo: () => void
 }
 
-function TicketScreen({ ticket, onBack }: TicketScreenProps) {
+function TicketScreen({ ticket, onBack, onOpenSelector, onResetDemo }: TicketScreenProps) {
   return (
     <div className="screen ticket-screen">
       <header className="ticket-header-row">
@@ -14,6 +16,15 @@ function TicketScreen({ ticket, onBack }: TicketScreenProps) {
         </button>
         <span className="screen-tag">Ticket</span>
       </header>
+
+      <div className="ticket-toolbar compact">
+        <button type="button" className="secondary-button" onClick={onOpenSelector}>
+          Change Ticket
+        </button>
+        <button type="button" className="secondary-button subtle" onClick={onResetDemo}>
+          Reset Demo
+        </button>
+      </div>
 
       <main className="ticket-details">
         <div className="ticket-identity">
@@ -50,7 +61,7 @@ function TicketScreen({ ticket, onBack }: TicketScreenProps) {
           </div>
           <div className="field-row status-row">
             <span>Status:</span>
-            <strong className="valid-status">● VALID</strong>
+            <strong className="valid-status">● {ticket.status.toUpperCase()}</strong>
           </div>
         </div>
 

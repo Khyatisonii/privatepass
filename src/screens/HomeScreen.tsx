@@ -4,11 +4,25 @@ import type { Ticket } from '../types/ticket'
 
 interface HomeScreenProps {
   ticket: Ticket
+  tickets: Ticket[]
+  selectorOpen: boolean
   onShowTicket: () => void
   onOpenGate: () => void
+  onToggleSelector: () => void
+  onSelectTicket: (ticketId: string) => void
+  onResetDemo: () => void
 }
 
-function HomeScreen({ ticket, onShowTicket, onOpenGate }: HomeScreenProps) {
+function HomeScreen({
+  ticket,
+  tickets,
+  selectorOpen,
+  onShowTicket,
+  onOpenGate,
+  onToggleSelector,
+  onSelectTicket,
+  onResetDemo,
+}: HomeScreenProps) {
   return (
     <div className="screen home-screen">
       <header className="topbar">
@@ -23,6 +37,38 @@ function HomeScreen({ ticket, onShowTicket, onOpenGate }: HomeScreenProps) {
         <div className="heading-row">
           <h1>My Pass</h1>
         </div>
+
+        <div className="ticket-toolbar">
+          <button type="button" className="secondary-button" onClick={onToggleSelector}>
+            Change Ticket
+          </button>
+          <button type="button" className="secondary-button subtle" onClick={onResetDemo}>
+            Reset Demo
+          </button>
+        </div>
+
+        {selectorOpen && (
+          <div className="ticket-selector">
+            <div className="selector-header">
+              <span>Select a ticket</span>
+            </div>
+            <div className="selector-list">
+              {tickets.map((option) => (
+                <button
+                  key={option.id}
+                  type="button"
+                  className={`selector-item ${option.id === ticket.id ? 'active' : ''}`}
+                  onClick={() => onSelectTicket(option.id)}
+                >
+                  <span className="selector-ticket-name">{option.eventName}</span>
+                  <span className="selector-ticket-meta">
+                    {option.id} · {option.status.toUpperCase()}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         <TicketCard ticket={ticket} onShowTicket={onShowTicket} />
 
