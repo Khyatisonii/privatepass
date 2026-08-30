@@ -24,6 +24,9 @@ dist-ssr
 # Midnight / local generated state
 .midnight/
 .midnight/**
+.midnight-state.json
+.midnight-wallet-state/
+midnight-level-db/
 wallets/
 wallet/
 **/wallets/**
